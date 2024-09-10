@@ -1,4 +1,5 @@
-# Simple Note Chrome Extension
+#![icon128](https://github.com/user-attachments/assets/5b6aa858-8900-4cf2-a57e-aee1bfa1d0e1)
+ Simple Note Chrome Extension
 
 ## Description
 
