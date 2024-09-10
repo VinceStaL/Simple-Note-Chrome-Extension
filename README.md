@@ -1,5 +1,6 @@
-#![icon128](https://github.com/user-attachments/assets/5b6aa858-8900-4cf2-a57e-aee1bfa1d0e1)
- Simple Note Chrome Extension
+![icon128](https://github.com/user-attachments/assets/5b6aa858-8900-4cf2-a57e-aee1bfa1d0e1)
+# Simple Note Chrome Extension
+![icon](https://github.com/user-attachments/assets/8c847272-7d92-4ed3-b4d8-310eb7d45c19)
 
 ## Description
 
