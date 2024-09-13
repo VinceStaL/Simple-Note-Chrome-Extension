@@ -28,3 +28,5 @@ This Chrome extension provides a secure and convenient way to take and manage en
 - All notes are encrypted using AES encryption before being stored locally.
 - Your data never leaves your browser, ensuring maximum privacy.
 
+## Installation
+You can get this extension at Chrome Web Store https://chromewebstore.google.com/detail/simple-note/paacjligoklhndalflbcghimfiahfbmc
