@@ -1,6 +1,7 @@
 let currentTabId = 'tab-0';
 let chatHistory = {};
 let tabsData = [];
+let deleteConfirmTimeout = null;
 
 document.addEventListener('DOMContentLoaded', function() {
   const addTabButton = document.getElementById('add-tab');
@@ -34,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
   addTabButton.addEventListener('click', addNewTab);
 
   // Delete selected tab when clicking the - button
-  deleteTabButton.addEventListener('click', deleteSelectedTab);
+  deleteTabButton.addEventListener('click', confirmDeleteTab);
 
   // Copy current tab when clicking the C button
   copyTabButton.addEventListener('click', copyCurrentTab);
@@ -109,6 +110,38 @@ function addNewTab() {
   tabsData.push(newTabId);
   switchTab(newTabId);
   saveAllData();
+}
+
+function confirmDeleteTab() {
+  const deleteButton = document.getElementById('delete-tab');
+  
+  if (deleteButton.style.backgroundColor === 'red') {
+    // Second click - proceed with deletion
+    deleteSelectedTab();
+    resetDeleteButton();
+  } else {
+    // First click - show confirmation
+    deleteButton.style.backgroundColor = 'red';
+    deleteButton.style.color = 'white';
+    
+    if (deleteConfirmTimeout) {
+      clearTimeout(deleteConfirmTimeout);
+    }
+    
+    deleteConfirmTimeout = setTimeout(() => {
+      resetDeleteButton();
+    }, 3000);
+  }
+}
+
+function resetDeleteButton() {
+  const deleteButton = document.getElementById('delete-tab');
+  deleteButton.style.backgroundColor = '';
+  deleteButton.style.color = '';
+  if (deleteConfirmTimeout) {
+    clearTimeout(deleteConfirmTimeout);
+    deleteConfirmTimeout = null;
+  }
 }
 
 function deleteSelectedTab() {
