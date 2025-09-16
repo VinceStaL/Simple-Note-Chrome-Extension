@@ -3,7 +3,7 @@
   "name": "Simple Note",
   "version": "1.3.0",
   "description": "A simple note Chrome extension",
-  "permissions": ["storage", "downloads"],
+  "permissions": ["storage", "downloads", "clipboardRead"],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {

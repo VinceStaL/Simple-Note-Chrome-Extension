@@ -5,6 +5,8 @@ let tabsData = [];
 document.addEventListener('DOMContentLoaded', function() {
   const addTabButton = document.getElementById('add-tab');
   const deleteTabButton = document.getElementById('delete-tab');
+  const copyTabButton = document.getElementById('copy-tab');
+  const pasteTabButton = document.getElementById('paste-tab');
   const exportTabButton = document.getElementById('export-tab');
 
   // Load saved chat history and tabs data
@@ -33,6 +35,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Delete selected tab when clicking the - button
   deleteTabButton.addEventListener('click', deleteSelectedTab);
+
+  // Copy current tab when clicking the C button
+  copyTabButton.addEventListener('click', copyCurrentTab);
+
+  // Paste to current tab when clicking the P button
+  pasteTabButton.addEventListener('click', pasteToCurrentTab);
 
   // Export current tab when clicking the > button
   exportTabButton.addEventListener('click', exportCurrentTab);
@@ -159,6 +167,49 @@ function encrypt(text) {
 function decrypt(encryptedText) {
   // Implement your decryption logic here
   return atob(encryptedText); // Simple base64 decoding for demonstration
+}
+
+function copyCurrentTab() {
+  const textarea = document.querySelector(`#chat-area-${currentTabId} textarea`);
+  const content = textarea.value;
+  
+  navigator.clipboard.writeText(content).then(() => {
+    const copyButton = document.getElementById('copy-tab');
+    const originalText = copyButton.textContent;
+    copyButton.style.fontWeight = 'bold';
+    setTimeout(() => {
+      copyButton.style.fontWeight = 'normal';
+    }, 1000);
+  }).catch(() => {
+    const copyButton = document.getElementById('copy-tab');
+    const originalText = copyButton.textContent;
+    copyButton.textContent = 'X';
+    setTimeout(() => {
+      copyButton.textContent = originalText;
+    }, 1000);
+  });
+}
+
+function pasteToCurrentTab() {
+  navigator.clipboard.readText().then((clipboardText) => {
+    const textarea = document.querySelector(`#chat-area-${currentTabId} textarea`);
+    textarea.value += clipboardText;
+    adjustTextareaHeight(textarea);
+    saveChatContent(currentTabId);
+    
+    const pasteButton = document.getElementById('paste-tab');
+    pasteButton.style.fontWeight = 'bold';
+    setTimeout(() => {
+      pasteButton.style.fontWeight = 'normal';
+    }, 1000);
+  }).catch(() => {
+    const pasteButton = document.getElementById('paste-tab');
+    const originalText = pasteButton.textContent;
+    pasteButton.textContent = 'X';
+    setTimeout(() => {
+      pasteButton.textContent = originalText;
+    }, 1000);
+  });
 }
 
 function exportCurrentTab() {

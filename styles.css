@@ -44,7 +44,7 @@ body {
   margin-left: 5px;
 }
 
-#add-tab, #delete-tab, #export-tab {
+#add-tab, #delete-tab, #copy-tab, #paste-tab, #export-tab {
   padding: 5px 10px;
   border: 1px solid #ccc;
   background-color: #f0f0f0;
@@ -60,6 +60,14 @@ body {
   border-right: none;
 }
 
+#copy-tab {
+  border-right: none;
+}
+
+#paste-tab {
+  border-right: none;
+}
+
 #export-tab {
   border-radius: 0 5px 5px 0;
 }
@@ -71,6 +79,16 @@ body {
 
 #delete-tab:hover {
   background-color: #ff4d4d;
+  color: white;
+}
+
+#copy-tab:hover {
+  background-color: #28a745;
+  color: white;
+}
+
+#paste-tab:hover {
+  background-color: #17a2b8;
   color: white;
 }
 
