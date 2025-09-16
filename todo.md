@@ -1,3 +1,3 @@
 * [X] copy button
-* [ ] delete confirmation
-* [ ] drag and move the tab
+* [X] delete confirmation
+* [X] drag and move the tab
