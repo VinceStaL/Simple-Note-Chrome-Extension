@@ -57,7 +57,11 @@ function createTab(id, number) {
   tab.textContent = number;
   tab.id = id;
   tab.classList.add('tab');
+  tab.draggable = true;
   tab.addEventListener('click', () => switchTab(id));
+  tab.addEventListener('dragstart', handleDragStart);
+  tab.addEventListener('dragover', handleDragOver);
+  tab.addEventListener('drop', handleDrop);
   return tab;
 }
 
@@ -243,6 +247,48 @@ function pasteToCurrentTab() {
       pasteButton.textContent = originalText;
     }, 1000);
   });
+}
+
+let draggedTabId = null;
+
+function handleDragStart(e) {
+  draggedTabId = e.target.id;
+  e.dataTransfer.effectAllowed = 'move';
+}
+
+function handleDragOver(e) {
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'move';
+}
+
+function handleDrop(e) {
+  e.preventDefault();
+  const targetTabId = e.target.id;
+  
+  if (draggedTabId && targetTabId && draggedTabId !== targetTabId) {
+    const draggedIndex = tabsData.indexOf(draggedTabId);
+    const targetIndex = tabsData.indexOf(targetTabId);
+    
+    // Reorder tabsData array
+    tabsData.splice(draggedIndex, 1);
+    tabsData.splice(targetIndex, 0, draggedTabId);
+    
+    // Renumber and reorder DOM elements
+    const tabsContainer = document.getElementById('tabs');
+    tabsContainer.innerHTML = '';
+    
+    tabsData.forEach((tabId, index) => {
+      const tab = createTab(tabId, index + 1);
+      tabsContainer.appendChild(tab);
+    });
+    
+    // Restore active tab styling
+    document.getElementById(currentTabId).classList.add('active');
+    
+    saveAllData();
+  }
+  
+  draggedTabId = null;
 }
 
 function exportCurrentTab() {
